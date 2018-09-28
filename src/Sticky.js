@@ -30,6 +30,18 @@ export default class Sticky extends Component {
     style: {}
   };
 
+  setNewHeight() {
+    if (this.state.calculatedHeight && this.content) {
+      if (this.state.calculatedHeight !== this.content.getBoundingClientRect().height) {
+        this.setState({ calculatedHeight: this.content.getBoundingClientRect().height })
+      }
+    }
+  }
+
+  updateHeight() {
+    setTimeout(setNewHeight, 10);
+  }
+
   componentWillMount() {
     if (!this.context.subscribe)
       throw new TypeError(
@@ -37,6 +49,10 @@ export default class Sticky extends Component {
       );
 
     this.context.subscribe(this.handleContainerEvent);
+  }
+
+  componentDidMount() {
+    window.reactSticky = { updateHeight };
   }
 
   componentWillUnmount() {
