@@ -30,18 +30,6 @@ export default class Sticky extends Component {
     style: {}
   };
 
-  setNewHeight() {
-    if (this.state.calculatedHeight && this.content) {
-      if (this.state.calculatedHeight !== this.content.getBoundingClientRect().height) {
-        this.setState({ calculatedHeight: this.content.getBoundingClientRect().height })
-      }
-    }
-  }
-
-  updateHeight() {
-    setTimeout(setNewHeight, 10);
-  }
-
   componentWillMount() {
     if (!this.context.subscribe)
       throw new TypeError(
@@ -52,6 +40,16 @@ export default class Sticky extends Component {
   }
 
   componentDidMount() {
+    const updateHeight = () => {
+      setTimeout(() => {
+        if (this.state.calculatedHeight && this.content) {
+          if (this.state.calculatedHeight !== this.content.getBoundingClientRect().height) {
+            this.setState({ calculatedHeight: this.content.getBoundingClientRect().height })
+          }
+        }
+      }, 10);
+    }
+
     window.reactSticky = { updateHeight };
   }
 
@@ -90,7 +88,7 @@ export default class Sticky extends Component {
     const wasSticky = !!this.state.isSticky;
     const isSticky = preventingStickyStateChanges
       ? wasSticky
-      :  Math.min(0, distanceFromTop) <= -this.props.topOffset &&
+      :  distanceFromTop <= -this.props.topOffset &&
         distanceFromBottom > -this.props.bottomOffset;
 
     distanceFromBottom =
