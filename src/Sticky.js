@@ -47,7 +47,7 @@ export default class Sticky extends Component {
             this.setState({
               calculatedHeight:
                 this.content.getBoundingClientRect().height
-                - Math.min(0, this.props.distanceFromTop)
+                - Math.min(0, this.state.distanceFromTop)
               })
           }
         }
