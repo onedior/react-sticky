@@ -1,6 +1,6 @@
 {
   "name": "@onedior/react-sticky",
-  "version": "6.0.4",
+  "version": "6.0.12",
   "description": "Sticky component for React",
   "main": "lib/index.js",
   "scripts": {
