@@ -40,19 +40,12 @@ export default class Sticky extends Component {
   }
 
   componentDidMount() {
-    this.setState({ initialTop: this.content.offsetTop });
-
     const updateHeight = () => {
       setTimeout(() => {
         if (this.state.calculatedHeight && this.content) {
           if (this.state.calculatedHeight !== this.content.getBoundingClientRect().height) {
             this.setState({
-              calculatedHeight:
-                this.content.getBoundingClientRect().height
-                - Math.min(0, this.state.distanceFromTop)
-                + Math.min(0, this.state.distanceFromBottom)
-                - this.state.initialTop
-              })
+              calculatedHeight: this.content.getBoundingClientRect().height })
           }
         }
       }, 10);
